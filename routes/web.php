@@ -77,3 +77,7 @@ Route::get('/active/blog', function () {
 Route::get('/active/contact', function () {
     return view('active/contact');
 })->name('contact');
+
+Route::get('/test',function(){
+    return view('test');
+})->name('test');
