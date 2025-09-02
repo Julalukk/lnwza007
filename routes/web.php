@@ -7,3 +7,12 @@ Route::get('/', [NewsController::class, 'index'])->name('news.index');
 
 // หน้า "รายละเอียดข่าวยาเสพติด"
 Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+
+// Dashboard route
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Include other route files
+require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';
