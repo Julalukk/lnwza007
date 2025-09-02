@@ -15,7 +15,7 @@
     </nav>
 
     <main class="container">
-        {{ $slot }}
+        @yield('content')
     </main>
 
     <footer class="text-center py-4 text-muted">
