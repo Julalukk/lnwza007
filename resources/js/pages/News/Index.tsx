@@ -10,11 +10,26 @@ interface News {
     published_at: string;
 }
 
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
+interface PaginationMeta {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    per_page: number;
+    to: number | null;
+    total: number;
+}
+
 interface NewsIndexProps extends PageProps {
     news: {
         data: News[];
-        links: any[];
-        meta: any;
+        links: PaginationLink[];
+        meta: PaginationMeta;
     };
 }
 
