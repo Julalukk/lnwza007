@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>@yield('title', 'เว็บข่าวยาเสพติด')</title>
     <meta name="description" content="@yield('description', 'เว็บข่าวสารเกี่ยวกับยาเสพติดและการป้องกัน')">
     
@@ -12,10 +12,60 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
+        /* Base styles for consistent layout */
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            font-size: 16px;
+        }
+        
+        body {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
+            body {
+                font-size: 13px;
+            }
+        }
+        
+        /* News card styles */
         .news-card {
             transition: transform 0.3s ease;
             border: none;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 100%;
+            margin-bottom: 20px;
         }
         .news-card:hover {
             transform: translateY(-5px);
@@ -24,11 +74,13 @@
         .news-image {
             height: 200px;
             object-fit: cover;
+            width: 100%;
         }
         .news-title {
             color: #2c3e50;
             font-weight: 600;
             line-height: 1.4;
+            font-size: 16px;
         }
         .news-title:hover {
             color: #e74c3c;
@@ -36,10 +88,11 @@
         .news-summary {
             color: #7f8c8d;
             line-height: 1.6;
+            font-size: 14px;
         }
         .news-meta {
             color: #95a5a6;
-            font-size: 0.9em;
+            font-size: 12px;
         }
         .header-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -47,13 +100,86 @@
         .category-badge {
             background: #e74c3c;
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
             font-weight: 500;
         }
         .content-area {
             min-height: 70vh;
+        }
+        
+        /* Card grid consistency */
+        .row {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        
+        .col-lg-4, .col-md-6, .col-sm-12 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        /* Button consistency */
+        .btn {
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        
+        .btn-sm {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+        
+        /* Floating button */
+        .floating-btn {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 9999 !important;
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50% !important;
+            background-color: #007bff !important;
+            color: white !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3) !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
+        }
+        
+        .floating-btn:hover {
+            background-color: #0056b3 !important;
+            transform: scale(1.1) !important;
+            color: white !important;
+            text-decoration: none !important;
+        }
+        
+        /* Ensure consistent spacing */
+        .py-5 {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem !important;
+        }
+        
+        /* Fix any zoom issues */
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        /* Ensure consistent font rendering */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     </style>
 </head>
@@ -118,5 +244,78 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for consistent layout -->
+    <script>
+        // Ensure consistent viewport behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fix viewport scaling issues
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport) {
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+            }
+            
+            // Fix container width
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                const screenWidth = window.innerWidth;
+                if (screenWidth > 1200) {
+                    container.style.maxWidth = '1200px';
+                } else if (screenWidth > 768) {
+                    container.style.maxWidth = '100%';
+                    container.style.paddingLeft = '15px';
+                    container.style.paddingRight = '15px';
+                } else {
+                    container.style.maxWidth = '100%';
+                    container.style.paddingLeft = '10px';
+                    container.style.paddingRight = '10px';
+                }
+            });
+            
+            // Ensure cards have consistent height
+            const cards = document.querySelectorAll('.card, .news-card');
+            cards.forEach(card => {
+                card.style.minHeight = '400px';
+            });
+            
+            // Fix floating button positioning
+            const floatingBtn = document.querySelector('.floating-btn');
+            if (floatingBtn) {
+                floatingBtn.style.position = 'fixed';
+                floatingBtn.style.bottom = '20px';
+                floatingBtn.style.right = '20px';
+                floatingBtn.style.zIndex = '9999';
+            }
+        });
+        
+        // Run on window resize
+        window.addEventListener('resize', function() {
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                const screenWidth = window.innerWidth;
+                if (screenWidth > 1200) {
+                    container.style.maxWidth = '1200px';
+                } else if (screenWidth > 768) {
+                    container.style.maxWidth = '100%';
+                    container.style.paddingLeft = '15px';
+                    container.style.paddingRight = '15px';
+                } else {
+                    container.style.maxWidth = '100%';
+                    container.style.paddingLeft = '10px';
+                    container.style.paddingRight = '10px';
+                }
+            });
+        });
+        
+        // Run on orientation change
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+                }
+            }, 100);
+        });
+    </script>
 </body>
 </html>

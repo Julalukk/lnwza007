@@ -1,0 +1,78 @@
+# คำสั่งสำหรับ Deploy ขึ้น Domain
+
+## 1. อัปโหลดไฟล์ขึ้น Server
+- อัปโหลดไฟล์ทั้งหมดขึ้น Server (ยกเว้น node_modules, vendor, .git)
+- หรือใช้ Git pull ถ้าใช้ Git
+
+## 2. รันคำสั่งบน Server
+
+### ติดตั้ง Dependencies
+composer install --optimize-autoloader --no-dev
+npm install
+npm run build
+
+### ตั้งค่า Environment
+cp .env.example .env
+# แก้ไข .env ให้ตรงกับ Server
+
+### ตั้งค่า Database
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+
+### สร้าง Symbolic Link
+php artisan storage:link
+
+### Clear Cache
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+### ตั้งค่า Permission (ถ้าใช้ Linux)
+chmod -R 755 storage
+chmod -R 755 bootstrap/cache
+
+## 3. คำสั่งสำหรับอัปเดท Database เท่านั้น
+
+### อัปเดท Schema (เพิ่ม/แก้ไขตาราง)
+php artisan migrate
+
+### เพิ่มข้อมูลตัวอย่าง
+php artisan db:seed
+
+### Reset Database (ลบข้อมูลเก่าและสร้างใหม่)
+php artisan migrate:fresh --seed
+
+### อัปเดทเฉพาะ Migration ใหม่
+php artisan migrate --force
+
+## 4. คำสั่งสำหรับอัปเดท Code เท่านั้น
+
+### Clear Cache
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+
+### Rebuild Cache
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+## 5. คำสั่งรวมสำหรับ Deploy ครั้งแรก
+composer install --optimize-autoloader --no-dev
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+## 6. คำสั่งสำหรับอัปเดท Code ใหม่
+git pull origin main
+composer install --optimize-autoloader --no-dev
+php artisan migrate
+php artisan storage:link
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
