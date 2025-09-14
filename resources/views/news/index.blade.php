@@ -12,7 +12,13 @@
                     <i class="fas fa-list me-2 text-primary"></i>
                     รวมข่าวยาเสพติด
                 </h2>
-                <span class="badge bg-primary fs-6">{{ $news->count() }} ข่าว</span>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-primary fs-6">{{ $news->count() }} ข่าว</span>
+                    <a href="{{ route('news.create') }}" class="btn btn-success">
+                        <i class="fas fa-plus me-1"></i>
+                        เพิ่มข่าว
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -55,10 +61,24 @@
                                     @endif
                                 </div>
                                 
-                                <a href="{{ route('news.show', $item->id) }}" class="btn btn-outline-primary btn-sm">
-                                    <i class="fas fa-eye me-1"></i>
-                                    อ่านต่อ
-                                </a>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('news.show', $item->id) }}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>
+                                        อ่านต่อ
+                                    </a>
+                                    <a href="{{ route('news.edit', $item->id) }}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-edit me-1"></i>
+                                        แก้ไข
+                                    </a>
+                                    <form action="{{ route('news.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบข่าวนี้?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash me-1"></i>
+                                            ลบ
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,4 +97,39 @@
         </div>
     @endif
 </div>
+
+<style>
+    /* เพิ่มปุ่มลอย */
+    .floating-btn {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        z-index: 9999;
+        /* ให้ปุ่มลอยอยู่เหนือทุกวัตถุ */
+        background-color: #007bff;
+        line-height: 1;
+        color: white;
+        font-size: 50px;
+        font-weight: 900;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .floating-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<!-- ปุ่ม + ที่ลอยอยู่ -->
+<a href="{{ route('news.create') }}">
+    <div class="floating-btn py-auto pb-2">
+        +
+    </div>
+</a>
 @endsection

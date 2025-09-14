@@ -3,126 +3,47 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\News;
-use Illuminate\Support\Str;
+use App\Models\Product;
 
-class NewsSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $items = [
+        $products = [
             [
-                'title' => 'ตัวอย่างข่าวกีฬา #1',
-                'slug' => 'sample-sports-news-1',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/1',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #1 (ตัวอย่างสำหรับทดสอบ)',
-                'content' => 'นี่คือเนื้อหาข่าวฉบับเต็มสำหรับทดสอบระบบ แทนด้วยข่าวจริงภายหลัง',
-                'published_at' => now()->subDays(1),
+                'name' => 'iPhone 15 Pro',
+                'description' => 'สมาร์ทโฟน iPhone รุ่นล่าสุด พร้อมชิป A17 Pro และกล้อง 48MP',
+                'price' => 42900.00,
+                'image' => null,
             ],
             [
-                'title' => 'ตัวอย่างข่าวกีฬา #2',
-                'slug' => 'sample-sports-news-2',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/2',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #2 (ตัวอย่างสำหรับทดสอบ)',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(2),
+                'name' => 'Samsung Galaxy S24',
+                'description' => 'สมาร์ทโฟน Android รุ่นพรีเมียม พร้อมกล้อง AI และหน้าจอ Dynamic AMOLED',
+                'price' => 32900.00,
+                'image' => null,
             ],
             [
-                'title' => 'ตัวอย่างข่าวกีฬา #3',
-                'slug' => 'sample-sports-news-3',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/3',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #3',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(3),
+                'name' => 'MacBook Air M2',
+                'description' => 'แล็ปท็อป MacBook Air พร้อมชิป M2 หน้าจอ 13 นิ้ว',
+                'price' => 39900.00,
+                'image' => null,
             ],
             [
-                'title' => 'ตัวอย่างข่าวกีฬา #4',
-                'slug' => 'sample-sports-news-4',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/4',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #4',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(4),
+                'name' => 'iPad Pro 12.9"',
+                'description' => 'แท็บเล็ต iPad Pro ขนาด 12.9 นิ้ว พร้อมชิป M2 และหน้าจอ Liquid Retina XDR',
+                'price' => 34900.00,
+                'image' => null,
             ],
             [
-                'title' => 'ตัวอย่างข่าวกีฬา #5',
-                'slug' => 'sample-sports-news-5',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/5',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #5',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(5),
-            ],
-            [
-                'title' => 'ตัวอย่างข่าวกีฬา #6',
-                'slug' => 'sample-sports-news-6',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/6',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #6',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(6),
-            ],
-            [
-                'title' => 'ตัวอย่างข่าวกีฬา #7',
-                'slug' => 'sample-sports-news-7',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/7',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #7',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(7),
-            ],
-            [
-                'title' => 'ตัวอย่างข่าวกีฬา #8',
-                'slug' => 'sample-sports-news-8',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/8',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #8',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(8),
-            ],
-            [
-                'title' => 'ตัวอย่างข่าวกีฬา #9',
-                'slug' => 'sample-sports-news-9',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/9',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #9',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(9),
-            ],
-            [
-                'title' => 'ตัวอย่างข่าวกีฬา #10',
-                'slug' => 'sample-sports-news-10',
-                'category' => 'sports',
-                'source' => 'SAMPLE',
-                'source_url' => 'https://example.com/10',
-                'image_url' => null,
-                'excerpt' => 'สรุปสั้น ๆ ของข่าวกีฬา #10',
-                'content' => 'เนื้อหาข่าวฉบับเต็ม (ทดสอบ)',
-                'published_at' => now()->subDays(10),
+                'name' => 'AirPods Pro 2',
+                'description' => 'หูฟังไร้สาย AirPods Pro รุ่นที่ 2 พร้อมระบบ Active Noise Cancellation',
+                'price' => 8900.00,
+                'image' => null,
             ],
         ];
 
-        News::insert($items);
+        foreach ($products as $product) {
+            Product::create($product);
+        }
     }
 }
