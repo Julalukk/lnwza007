@@ -26,7 +26,7 @@
     @if($news->count() > 0)
         <div class="row">
             @foreach($news as $item)
-                <div class="col-lg-6 col-xl-4 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card news-card h-100">
                         @if($item->image_url)
                             <img src="{{ $item->image_url }}" class="card-img-top news-image" alt="{{ $item->title }}">

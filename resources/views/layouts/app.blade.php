@@ -34,17 +34,15 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             padding-left: 15px;
             padding-right: 15px;
         }
         
-        @media (max-width: 1200px) {
+        @media (min-width: 1200px) {
             .container {
-                max-width: 100%;
-                padding-left: 15px;
-                padding-right: 15px;
+                max-width: 1200px;
             }
         }
         
@@ -62,10 +60,12 @@
         /* News card styles */
         .news-card {
             transition: transform 0.3s ease;
-            border: none;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             height: 100%;
             margin-bottom: 20px;
+            overflow: hidden;
         }
         .news-card:hover {
             transform: translateY(-5px);
@@ -81,6 +81,7 @@
             font-weight: 600;
             line-height: 1.4;
             font-size: 16px;
+            margin-bottom: 10px;
         }
         .news-title:hover {
             color: #e74c3c;
@@ -255,21 +256,13 @@
                 viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
             }
             
-            // Fix container width
+            // Fix container width - let CSS handle it
             const containers = document.querySelectorAll('.container');
             containers.forEach(container => {
-                const screenWidth = window.innerWidth;
-                if (screenWidth > 1200) {
-                    container.style.maxWidth = '1200px';
-                } else if (screenWidth > 768) {
-                    container.style.maxWidth = '100%';
-                    container.style.paddingLeft = '15px';
-                    container.style.paddingRight = '15px';
-                } else {
-                    container.style.maxWidth = '100%';
-                    container.style.paddingLeft = '10px';
-                    container.style.paddingRight = '10px';
-                }
+                // Remove any inline styles that might override CSS
+                container.style.maxWidth = '';
+                container.style.paddingLeft = '';
+                container.style.paddingRight = '';
             });
             
             // Ensure cards have consistent height
@@ -290,20 +283,12 @@
         
         // Run on window resize
         window.addEventListener('resize', function() {
+            // Let CSS handle container sizing
             const containers = document.querySelectorAll('.container');
             containers.forEach(container => {
-                const screenWidth = window.innerWidth;
-                if (screenWidth > 1200) {
-                    container.style.maxWidth = '1200px';
-                } else if (screenWidth > 768) {
-                    container.style.maxWidth = '100%';
-                    container.style.paddingLeft = '15px';
-                    container.style.paddingRight = '15px';
-                } else {
-                    container.style.maxWidth = '100%';
-                    container.style.paddingLeft = '10px';
-                    container.style.paddingRight = '10px';
-                }
+                container.style.maxWidth = '';
+                container.style.paddingLeft = '';
+                container.style.paddingRight = '';
             });
         });
         
