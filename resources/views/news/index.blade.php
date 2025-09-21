@@ -14,10 +14,14 @@
                 </h2>
                 <div class="d-flex align-items-center gap-3">
                     <span class="badge bg-primary fs-6">{{ $news->count() }} ข่าว</span>
-                    <a href="{{ route('news.create') }}" class="btn btn-success">
-                        <i class="fas fa-plus me-1"></i>
-                        เพิ่มข่าว
-                    </a>
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('news.create') }}" class="btn btn-success">
+                                <i class="fas fa-plus me-1"></i>
+                                เพิ่มข่าว
+                            </a>
+                        @endif
+                    @endauth
                 </div>
             </div>
         </div>
@@ -66,18 +70,22 @@
                                         <i class="fas fa-eye me-1"></i>
                                         อ่านต่อ
                                     </a>
-                                    <a href="{{ route('news.edit', $item->id) }}" class="btn btn-outline-warning btn-sm">
-                                        <i class="fas fa-edit me-1"></i>
-                                        แก้ไข
-                                    </a>
-                                    <form action="{{ route('news.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบข่าวนี้?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash me-1"></i>
-                                            ลบ
-                                        </button>
-                                    </form>
+                                    @auth
+                                        @if(Auth::user()->role === 'admin')
+                                            <a href="{{ route('news.edit', $item->id) }}" class="btn btn-outline-warning btn-sm">
+                                                <i class="fas fa-edit me-1"></i>
+                                                แก้ไข
+                                            </a>
+                                            <form action="{{ route('news.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบข่าวนี้?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash me-1"></i>
+                                                    ลบ
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -126,10 +134,14 @@
     }
 </style>
 
-<!-- ปุ่ม + ที่ลอยอยู่ -->
-<a href="{{ route('news.create') }}">
-    <div class="floating-btn py-auto pb-2">
-        +
-    </div>
-</a>
+<!-- ปุ่ม + ที่ลอยอยู่ - เฉพาะ admin -->
+@auth
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('news.create') }}">
+            <div class="floating-btn py-auto pb-2">
+                +
+            </div>
+        </a>
+    @endif
+@endauth
 @endsection

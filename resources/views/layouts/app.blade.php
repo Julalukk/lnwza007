@@ -201,6 +201,36 @@
                         <a href="{{ route('news.index') }}" class="btn btn-light btn-sm me-2">
                             <i class="fas fa-home me-1"></i> หน้าหลัก
                         </a>
+                        @auth
+                            <div class="dropdown">
+                                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user me-1"></i> {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @if(Auth::user()->role === 'admin')
+                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">
+                                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="{{ route('news.create') }}">
+                                            <i class="fas fa-plus me-2"></i> เพิ่มข่าว
+                                        </a></li>
+                                    @endif
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="fas fa-sign-out-alt me-2"></i> ออกจากระบบ
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i> เข้าสู่ระบบ
+                            </a>
+                        @endauth
                     </div>
                 </div>
             </div>
