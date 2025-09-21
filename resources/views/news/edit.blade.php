@@ -1,6 +1,41 @@
-<x-bootstrap-theme title="แก้ไขข่าวยาเสพติด">
-    <div class="container">
-        <h2>แก้ไขข่าวยาเสพติด</h2>
+@extends('layouts.app')
+
+@section('title', 'แก้ไขข่าวยาเสพติด')
+@section('description', 'แก้ไขข้อมูลข่าวยาเสพติด')
+
+@section('content')
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('news.index') }}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>หน้าหลัก
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('news.show', $news->id) }}" class="text-decoration-none">
+                            {{ Str::limit($news->title, 30) }}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">แก้ไขข่าว</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-edit me-2"></i>
+                        แก้ไขข่าวยาเสพติด
+                    </h2>
+                </div>
+                <div class="card-body p-4">
         
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -93,10 +128,20 @@
                 @enderror
             </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ route('news.index') }}" class="btn btn-secondary me-md-2">ยกเลิก</a>
-                <button type="submit" class="btn btn-primary">บันทึกการแก้ไข</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ route('news.show', $news->id) }}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            ยกเลิก
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>
+                            บันทึกการแก้ไข
+                        </button>
+                    </div>
+                </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</x-bootstrap-theme>
+</div>
+@endsection

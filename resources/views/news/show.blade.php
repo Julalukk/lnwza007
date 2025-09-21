@@ -85,6 +85,22 @@
                         </a>
                         
                         <div class="d-flex gap-2">
+                            @auth
+                                @if(Auth::user()->role === 'admin')
+                                    <a href="{{ route('news.edit', $news->id) }}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-edit me-1"></i>
+                                        แก้ไข
+                                    </a>
+                                    <form action="{{ route('news.destroy', $news->id) }}" method="POST" class="d-inline" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบข่าวนี้?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash me-1"></i>
+                                            ลบ
+                                        </button>
+                                    </form>
+                                @endif
+                            @endauth
                             <button class="btn btn-outline-primary btn-sm" onclick="shareNews()">
                                 <i class="fas fa-share-alt me-1"></i>
                                 แชร์
