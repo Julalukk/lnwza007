@@ -14,17 +14,31 @@ Route::get('/news', [NewsController::class, 'index'])->name('news.list');
 // หน้า "รายละเอียดข่าวยาเสพติด"
 Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
-// CRUD Routes สำหรับข่าวยาเสพติด
-Route::get('/news-create', [NewsController::class, 'create'])->name('news.create');
-Route::post('/news-store', [NewsController::class, 'store'])->name('news.store');
-Route::get('/news-edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
-Route::put('/news-update/{id}', [NewsController::class, 'update'])->name('news.update');
-Route::delete('/news-delete/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+// CRUD Routes สำหรับข่าวยาเสพติด - เฉพาะ admin เท่านั้น
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/news-create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news-store', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news-edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('/news-update/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news-delete/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+});
 
-// Dashboard route
+// Dashboard route - เฉพาะ admin เท่านั้น
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'role:admin'])->name('dashboard');
+
+// Teacher routes - ใช้ Middleware Group
+Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
+    Route::get('/teacher', function () {
+        return view('teacher');
+    })->name('teacher');
+});
+
+// Admin routes - ใช้เมธอด middleware() โดยตรง
+Route::get('/admin', function () {
+    return view('dashboard'); // ใช้ dashboard view เป็นตัวอย่าง
+})->middleware('auth', 'role:admin')->name('admin');
 
 // Product routes
 Route::get('product-index', function () {

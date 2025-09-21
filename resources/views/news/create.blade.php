@@ -1,6 +1,36 @@
-<x-bootstrap-theme title="เพิ่มข่าวยาเสพติด">
-    <div class="container">
-        <h2>เพิ่มข่าวยาเสพติด</h2>
+@extends('layouts.app')
+
+@section('title', 'เพิ่มข่าวยาเสพติด')
+@section('description', 'เพิ่มข่าวสารใหม่เกี่ยวกับยาเสพติด')
+
+@section('content')
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('news.index') }}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>หน้าหลัก
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">เพิ่มข่าว</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-plus me-2"></i>
+                        เพิ่มข่าวยาเสพติด
+                    </h2>
+                </div>
+                <div class="card-body p-4">
         
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -85,10 +115,20 @@
                 @enderror
             </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ route('news.index') }}" class="btn btn-secondary me-md-2">ยกเลิก</a>
-                <button type="submit" class="btn btn-primary">บันทึกข่าว</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ route('news.index') }}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-1"></i>
+                            ยกเลิก
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i>
+                            บันทึกข่าว
+                        </button>
+                    </div>
+                </form>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</x-bootstrap-theme>
+</div>
+@endsection
