@@ -4,9 +4,17 @@ use App\Http\Controllers\NewsController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+
+Route::get('/', function () {
+    return Inertia::render('Welcome');
+})->name('home');
+
+
+
 
 // หน้า "รวมข่าวยาเสพติด"
-Route::get('/', [NewsController::class, 'index'])->name('news.index');
+// Route::get('/', [NewsController::class, 'index'])->name('news.index');
 
 // หน้า "รายการข่าวยาเสพติด"
 Route::get('/news', [NewsController::class, 'index'])->name('news.list');
